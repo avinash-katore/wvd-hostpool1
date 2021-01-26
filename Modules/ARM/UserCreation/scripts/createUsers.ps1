@@ -145,7 +145,7 @@ LogInfo("## 0 - LOAD DATA ##")
 [Net.ServicePointManager]::SecurityProtocol = "Tls, Tls11, Tls12, Ssl3
 
 $url = $($artifactsLocation + "/Modules/ARM/UserCreation/Parameters/users.parameters.json")
-Invoke-WebRequest -Uri $url -OutFile "C:\users.parameters.json"
+# Invoke-WebRequest -Uri $url -OutFile "C:\users.parameters.json"
 $ConfigurationJson = Get-Content -Path "C:\users.parameters.json" -Raw -ErrorAction 'Stop'
 
 try { $UserConfig = $ConfigurationJson | ConvertFrom-Json -ErrorAction 'Stop' }
