@@ -103,6 +103,7 @@ $profileClient = New-Object Microsoft.Azure.Commands.ResourceManager.Common.RMPr
 $pat = $profileClient.AcquireAccessToken($context.Tenant.Id).AccessToken
 $token = $pat
 $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($token)"))
+
 #Create devops project
 $url= $("https://dev.azure.com/" + $orgName + "/_apis/projects?api-version=5.1")
 write-output $url
@@ -176,8 +177,7 @@ $body = @"
 {
   "name": "$($projectName)",
   "project": {
-    "id": "$($projectId)",
-    "state": "all"
+    "id": "$($projectId)"
   }
 }
 "@
@@ -194,7 +194,7 @@ $body = @"
 {
   "parameters": {
     "gitSource": {
-      "url": "https://github.com/avinash-katore/wvd-hostpool1.git"
+      "url": "https://github.com/stgeorgi/wvdquickstart.git"
     }
   }
 }

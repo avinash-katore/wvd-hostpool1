@@ -231,7 +231,7 @@ $body = @"
 {
   "parameters": {
     "gitSource": {
-      "url": "https://github.com/avinash-katore/wvd-hostpool1.git"
+      "url": "https://github.com/stgeorgi/wvdquickstart.git"
     }
   }
 }
