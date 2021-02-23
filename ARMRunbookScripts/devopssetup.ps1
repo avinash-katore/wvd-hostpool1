@@ -176,14 +176,15 @@ $body = @"
 {
   "name": "$($projectName)",
   "project": {
-    "id": "$($projectId)"
+    "id": "$($projectId)",
+    "state": "all"
   }
 }
 "@
 write-output $body 
 
-# $response = Invoke-RestMethod -Uri $url -Headers @{Authorization = "Basic $token"} -Method Post -Body $Body -ContentType application/json
-# write-output $response
+$response = Invoke-RestMethod -Uri $url -Headers @{Authorization = "Basic $token"} -Method Post -Body $Body -ContentType application/json
+write-output $response
 
 # Clone public github repo with all the required files
 $url= $("https://dev.azure.com/" + $orgName + "/" + $projectName + "/_apis/git/repositories/" + $projectName + "/importRequests?api-version=5.1-preview.1")
