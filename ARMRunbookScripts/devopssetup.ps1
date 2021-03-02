@@ -39,12 +39,37 @@ $AutomationAccountName = Get-AutomationVariable -Name 'AccountName'
 $identityApproach = Get-AutomationVariable -Name 'identityApproach'
 $notificationEmail = Get-AutomationVariable -Name 'notificationEmail'
 
+write-output "`$SubscriptionId ` = `"$SubscriptionId `""
+write-output "`$ResourceGroupName ` = `"$ResourceGroupName `""
+write-output "`$fileURI ` = `"$fileURI `""
+write-output "`$principalId ` = `"$principalId `""
+write-output "`$orgName ` = `"$orgName `""
+write-output "`$projectName ` = `"$projectName `""
+write-output "`$location ` = `"$location `""
+write-output "`$adminUsername ` = `"$adminUsername `""
+write-output "`$domainName ` = `"$domainName `""
+write-output "`$keyvaultName ` = `"$keyvaultName `""
+write-output "`$wvdAssetsStorage ` = `"$wvdAssetsStorage `""
+write-output "`$profilesStorageAccountName ` = `"$profilesStorageAccountName `""
+write-output "`$ObjectId ` = `"$ObjectId `""
+write-output "`$DomainJoinAccountUPN ` = `"$DomainJoinAccountUPN `""
+write-output "`$existingSubnetName ` = `"$existingSubnetName `""
+write-output "`$virtualNetworkResourceGroupName ` = `"$virtualNetworkResourceGroupName `""
+write-output "`$existingVnetName ` = `"$existingVnetName `""
+write-output "`$computerName ` = `"$computerName `""
+write-output "`$targetGroup ` = `"$targetGroup `""
+write-output "`$AutomationAccountName ` = `"$AutomationAccountName `""
+write-output "`$identityApproach ` = `"$identityApproach `""
+write-output "`$notificationEmail ` = `"$notificationEmail `""
+
+
 # Download files required for this script from github ARMRunbookScripts/static folder
 $FileNames = "msft-wvd-saas-api.zip,msft-wvd-saas-web.zip,AzureModules.zip"
 $SplitFilenames = $FileNames.split(",")
 foreach($Filename in $SplitFilenames){
 Invoke-WebRequest -Uri "$fileURI/ARMRunbookScripts/static/$Filename" -OutFile "C:\$Filename"
 }
+
 
 #New-Item -Path "C:\msft-wvd-saas-offering" -ItemType directory -Force -ErrorAction SilentlyContinue
 Expand-Archive "C:\AzureModules.zip" -DestinationPath 'C:\Modules\Global' -ErrorAction SilentlyContinue
@@ -194,7 +219,7 @@ $body = @"
 {
   "parameters": {
     "gitSource": {
-      "url": "https://github.com/stgeorgi/wvdquickstart.git"
+      "url": "https://github.com/avinash-katore/wvd-hostpool1.git"
     }
   }
 }
@@ -270,9 +295,10 @@ write-output $url
 # It is possible at this point that the push has not completed yet. Logic below allows for 1 minute of waiting before timing out. 
 $currentTry = 0
 do {
-    Start-Sleep -Seconds 2
+    Start-Sleep -Seconds 5
     $response = Invoke-RestMethod -Uri $url -Headers @{Authorization = "Basic $token"} -Method Get
     write-output $response
+    Write-Output "try count $currentTry"
     $currentTry++
 } while ($currentTry -le 30 -and ($response.value.ObjectId -eq $null))
 
