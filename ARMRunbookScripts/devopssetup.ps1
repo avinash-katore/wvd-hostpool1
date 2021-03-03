@@ -291,7 +291,7 @@ if ($identityApproach -eq "AD") {
 }
 
 # Get ID of the commit we just pushed, needed for the next commit below
-$url = $("https://dev.azure.com/" + $orgName + "/" + $projectName + "/_apis/git/repositories/" + $projectName + "/refs?filter=heads/master&api-version=5.1")
+$url = $("https://dev.azure.com/" + $orgName + "/" + $projectName + "/_apis/git/repositories/" + $projectName + "/refs?filter=heads/main&api-version=5.1")
 write-output $url
 write-output "Basic $token"
 
@@ -359,7 +359,7 @@ $body = @"
 {
   "refUpdates": [
     {
-      "name": "refs/heads/master",
+      "name": "refs/heads/main",
       "oldObjectId": "$($response.value.objectId)"
     }
   ],
