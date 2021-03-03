@@ -208,8 +208,10 @@ $body = @"
 "@
 write-output $body 
 
-$response = Invoke-RestMethod -Uri $url -Headers @{Authorization = "Basic $token"} -Method Post -Body $Body -ContentType application/json
-write-output $response
+# $response = Invoke-RestMethod -Uri $url -Headers @{Authorization = "Basic $token"} -Method Post -Body $Body -ContentType application/json
+# write-output $response
+
+write-output "skipped creating repository assuming project is already created"
 
 # Clone public github repo with all the required files
 $url= $("https://dev.azure.com/" + $orgName + "/" + $projectName + "/_apis/git/repositories/" + $projectName + "/importRequests?api-version=5.1-preview.1")
@@ -291,6 +293,7 @@ if ($identityApproach -eq "AD") {
 # Get ID of the commit we just pushed, needed for the next commit below
 $url = $("https://dev.azure.com/" + $orgName + "/" + $projectName + "/_apis/git/repositories/" + $projectName + "/refs?filter=heads/master&api-version=5.1")
 write-output $url
+write-output "Basic $token"
 
 # It is possible at this point that the push has not completed yet. Logic below allows for 1 minute of waiting before timing out. 
 $currentTry = 0
