@@ -296,6 +296,7 @@ stages:
                 name: Deploy_SessionHosts_Task
                 inputs:
                   azureSubscription: $(serviceConnection)
+                  TargetAzurePs: LatestVersion
                   ScriptType: InlineScript
                   inline: |
                     Write-Verbose "Load function" -Verbose
