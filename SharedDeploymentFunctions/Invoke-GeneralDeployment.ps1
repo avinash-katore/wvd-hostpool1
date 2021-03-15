@@ -58,6 +58,11 @@ function Invoke-GeneralDeployment {
       }
     }
 
+    Write-Verbose "Final Parameters are"
+    Write-Verbose "======================="
+    Write-Verbose $DeploymentInputs
+    Write-Verbose "======================="
+
     $deploymentSchema = (Invoke-RestMethod -Uri $templateUri -Method 'GET').'$schema' # Works with PS7
     Write-Verbose "Evaluating schema [$deploymentSchema]" -Verbose
     switch -regex ($deploymentSchema) {
